@@ -7,6 +7,7 @@ import {defineStore} from 'pinia'
 import { auth } from '../firebaseConfig'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
+import { useDatabaseStore } from './database'
 
 
 
@@ -52,6 +53,9 @@ export const useUserStore = defineStore('user', () => {
     }
 
     async function logoutUser(){
+        //accede a otro store para poder usar sus methodeos
+        const databaseStore = useDatabaseStore()
+        databaseStore.$reset()
         try {
             await signOut(auth)
             userData.value  = null
