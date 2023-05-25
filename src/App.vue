@@ -1,5 +1,6 @@
 <script setup>
 import {useUserStore} from '@/stores/user'
+import { RouterLink } from 'vue-router';
 
 const userStore = useUserStore()
 
@@ -11,6 +12,10 @@ const userStore = useUserStore()
     <RouterLink
     v-if="userStore.userData"
     to="/">Home</RouterLink>
+    <RouterLink
+    v-if="userStore.userData"
+    to="/edit">Edit
+    </RouterLink>
     <RouterLink 
     v-if="!userStore.userData"
     to="/loggin">Loggin</RouterLink>
