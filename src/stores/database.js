@@ -45,7 +45,7 @@ export const useDatabaseStore = defineStore('database', () => {
 
             const querySnapshot = await getDocs(q)
             querySnapshot.forEach((doc) => {
-                console.log(doc.id, " --> ", doc.data())
+                //console.log(doc.id, " --> ", doc.data())
                 documents.value.push({
                     id: doc.id,
                     ...doc.data()
