@@ -3,6 +3,7 @@ import { useUserStore } from "@/stores/user";
 import { useDatabaseStore } from "../stores/database";
 import { useRouter } from 'vue-router'
 import AddUrl from "../components/AddUrl.vue";
+import AddForm from "../components/AddForm.vue";
 
 const userStore = useUserStore()
 const databaseStore = useDatabaseStore()
@@ -15,7 +16,7 @@ databaseStore.getUrls()
     <h1>Home</h1>
     <p>{{ userStore.userData?.email }}</p>
 
-    <AddUrl></AddUrl>
+    <AddForm></AddForm>
 
     <p>{{ databaseStore.loadingDocs }}</p>
     <p v-if="databaseStore.loadingDocs">

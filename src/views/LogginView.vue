@@ -1,7 +1,7 @@
 <script setup>
 import {useUserStore} from '@/stores/user'
+import { message } from 'ant-design-vue';
 import { reactive, ref } from 'vue';
-
 
 const userStore = useUserStore()
 
@@ -19,7 +19,26 @@ const handleSubmit = async () =>{
 
 const onFinish = async (values) => {
     console.log('Success:', values);
-    await userStore.loginUser(formState.email, formState.password)
+    const error = await userStore.loginUser(formState.email, formState.password)
+
+    // if error is undefined then return put the function else get the error code
+    if(!error){
+        return
+    }
+
+    switch (error) {
+        case 'auth/wrong-password':
+            message.error('This is an error message');        
+            break;
+        case 'auth/user-not-found':
+            message.error('User not found', 2)
+    
+        default:
+            break;
+    }
+
+
+
     };
 
 const onFinishFailed = () => {
@@ -86,6 +105,7 @@ const onFinishFailed = () => {
                     type="primary"
                     html-type="submit"
                     :disabled="userStore.loagindUser"
+                    :loading="userStore.loagindUser"
                     >Login</a-button>
                 </a-form-item>
 

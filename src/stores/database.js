@@ -9,9 +9,12 @@ export const useDatabaseStore = defineStore('database', () => {
     //state
     const  documents = ref([])
     let loadingDocs = ref(false)
+    let loading = ref(true)
 
     //methods
     async function getUrl(id) {
+        loading.value = true
+
         try {
             const docRef = doc(db, 'urls', id)
             const docSnap = await getDoc(docRef)
@@ -28,7 +31,7 @@ export const useDatabaseStore = defineStore('database', () => {
         } catch (error) {
             error.message
         }finally{
-
+            loading.value = false
         }
     }
 
@@ -52,13 +55,15 @@ export const useDatabaseStore = defineStore('database', () => {
                 })
             })
         } catch (error) {
-            console.log(error)
+            console.log(error.code)
+            return error.code
         }finally{
             loadingDocs.value = false
         }
     }
 
     async function addUrl( name ){
+        loading.value = true
         
         const urlObject = {
             name: name,
@@ -68,15 +73,16 @@ export const useDatabaseStore = defineStore('database', () => {
 
         try {
             const docRef = await addDoc(collection(db, 'urls'), urlObject)
-            console.log(docRef)
+            //console.log(docRef)
             documents.value.push({
                 ...urlObject,
                 id: docRef.id
             })
         } catch (error) {
-            console.log(error)
+            console.log('error...', error.code)
+            return error.code
         }finally{
-
+            loading.value = false
         }
     }
 

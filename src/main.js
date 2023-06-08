@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
+import 'ant-design-vue/es/message/style/css'; //use ant-design-vue/es instead of ant-design-vue/lib
+
 import App from './App.vue'
 import router from './router'
 
