@@ -4,6 +4,8 @@ import { useDatabaseStore } from "../stores/database";
 import { useRouter } from 'vue-router'
 import AddUrl from "../components/AddUrl.vue";
 import AddForm from "../components/AddForm.vue";
+import { DeleteOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons-vue';
+
 
 const userStore = useUserStore()
 const databaseStore = useDatabaseStore()
@@ -17,15 +19,9 @@ databaseStore.getUrls()
     <p>{{ userStore.userData?.email }}</p>
 
     <AddForm></AddForm>
-
-    <p>{{ databaseStore.loadingDocs }}</p>
     <p v-if="databaseStore.loadingDocs">
         loading documents...</p>
-    <ul v-else>
-        <li v-for="item in databaseStore.documents" key="item.id">
-            {{item.id}} - {{ item.name }} - {{ item.short }}
-            <button @click="databaseStore.deleteUrl(item.id)">Eliminar</button>
-            <button @click="router.push(`/edit/${item.id}`)">Editar</button>
-        </li>
-    </ul>
+    
+    <UrlCard></UrlCard>
+ 
 </template>

@@ -3,6 +3,7 @@ import {useRoute} from 'vue-router'
 import { useDatabaseStore } from "../stores/database";
 import { onMounted,ref } from 'vue'
 import {useRouter} from 'vue-router'
+import EditUrl from '../components/EditUrl.vue';
 
 const router = useRouter()
 const databaseStore = useDatabaseStore()
@@ -37,18 +38,6 @@ onMounted( async () => {
 
 <h1>Edit : {{route.params.id}}</h1>
 
-<form @submit.prevent="hanldeSubmit">
-    <p>name: </p>
-    <input 
-    type="text"
-    placeholder="url"
-    v-model="url">
-    <p>short</p>
-    <input type="text"
-    placeholder="shor-url">
-    <button type="submit">Editar</button>
-
-
-</form>
+<EditUrl></EditUrl>
 
 </template>

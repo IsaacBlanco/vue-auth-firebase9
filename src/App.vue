@@ -1,17 +1,19 @@
 <script setup>
-import {useUserStore} from '@/stores/user'
+import {useUserStore} from '@/stores/user';
 import { ref, watch } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
-const userStore = useUserStore()
-const route = useRoute()
-const selectedKeys = ref([''])
+const userStore = useUserStore();
+const route = useRoute();
+const selectedKeys = ref(['']);
 
 
-watch(() => route.name, () => selectedKeys.value = [route.name])
+watch(() => route.name, () => selectedKeys.value = [route.name]);
 
 
 </script>
+
+
 <template>
   <a-layout>
     <a-layout-header v-if="!userStore.loadingSession">
@@ -51,7 +53,7 @@ watch(() => route.name, () => selectedKeys.value = [route.name])
     </a-layout-header>
 
     <a-layout-content style="padding: 0 50px">
-      <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">
+      <div class="container">
         <h1>Hola - {{ userStore.userData?.email }}</h1>
         <div
           v-if="userStore.loadingSession">
@@ -62,3 +64,13 @@ watch(() => route.name, () => selectedKeys.value = [route.name])
     </a-layout-content>
   </a-layout>
 </template>
+
+
+<style>
+
+.container{
+  background: #fff;
+  padding: 24px;
+  min-height: calc(100vh - 64px); 
+}
+</style>

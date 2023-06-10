@@ -116,7 +116,7 @@ export const useDatabaseStore = defineStore('database', () => {
     }
 
     async function deleteUrl( id ) {
-        
+        loading.value = true
         const docRef = doc(db, "urls", id)
         const docSnap = await getDoc(docRef)
 
@@ -132,9 +132,10 @@ export const useDatabaseStore = defineStore('database', () => {
             await deleteDoc(docRef)
             documents.value = documents.value.filter((item) => item.id !== id)
         } catch (error) {
-            console.log(error.message)    
+            console.log(error.message) 
+            return error.message   
         }finally{
-
+            loading.value = false
         }
     }
 
